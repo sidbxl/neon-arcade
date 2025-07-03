@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Arcade</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
+        body {
+            margin: 0;
+            background-color: #0d0221;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'VT323', monospace;
+            text-align: center;
+        }
+
+        #game-selection-menu h1 {
+            font-size: 4em;
+            margin: 0 0 40px 0;
+            color: #fff;
+            text-align: center;
+            background: linear-gradient(to right, #f907fc, #2de2e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px #f907fc, 0 0 15px #f907fc, 0 0 25px #2de2e6, 0 0 35px #2de2e6;
+        }
+
+        .game-button {
+            font-family: 'VT323', monospace;
+            font-size: 2em;
+            padding: 15px 30px;
+            margin: 10px;
+            background: transparent;
+            color: #a6f2f2;
+            border: 2px solid #a6f2f2;
+            cursor: pointer;
+            box-shadow: 0 0 8px #a6f2f2, 0 0 12px #a6f2f2 inset;
+            transition: all 0.2s;
+        }
+
+        .game-button:hover {
+            background: #a6f2f2;
+            color: #0d0221;
+            box-shadow: 0 0 15px #a6f2f2, 0 0 25px #a6f2f2 inset;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+        <div id="game-selection-menu">
+            <h1>NEON ARCADE</h1>
+            <button class="game-button" onclick="loadGame('snake.js', 'loadSnakeGame')">Play Snake</button>
+            <button class="game-button" onclick="loadGame('tetris.js', 'loadTetrisGame')">Play Tetris</button>
+        </div>
+    </div>
+
+    <script>
+        function loadGame(scriptSrc, initFunctionName) {
+            const container = document.getElementById('app-container');
+            // Clear the menu
+            container.innerHTML = '';
+
+            // Dynamically load the chosen game script
+            const script = document.createElement('script');
+            script.src = scriptSrc;
+            script.onload = () => {
+                // Once the script is loaded, call its initialization function
+                // The function will then build the game inside the container
+                window[initFunctionName](container);
+            };
+            document.head.appendChild(script);
+        }
+    </script>
+
+</body>
+</html>
